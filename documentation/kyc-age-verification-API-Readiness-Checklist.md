@@ -1,6 +1,6 @@
 # API Readiness Checklist
 
-Checklist for kyc-age-verification 0.1.0 in release r2.2
+Checklist for kyc-age-verification v0.2.1-rc.2 in release r1.2
 
 | Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Reference information |
 |----|----------------------------------------------|:-----:|:-----------------:|:-------:|:------:|:----:|:----:|
