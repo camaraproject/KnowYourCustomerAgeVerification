@@ -30,7 +30,8 @@ The API definition(s) are based on
 
 ## kyc-age-verification v0.2.1-rc.2
 
-**kyc-age-verification v0.2.1-rc.2 is the second public release-candidate version for v0.2.1 of the CAMARA KnowYourCustomer Age Verification API**
+**kyc-age-verification v0.2.1-rc.2 is the second release-candidate version for v0.2.1 of the CAMARA KnowYourCustomer Age Verification API**
+
 
 
 - kyc-age-verification v0.2.1-rc.2 API definition **with inline documentation**:
