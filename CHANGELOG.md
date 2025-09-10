@@ -4,7 +4,7 @@
 
 - **[r1.3](#r13)**
 - [r1.2](#r12)
-- **~~[r1.1](#r11)~~**
+- ~~[r1.1](#r11)~~
 
 **Please be aware that the project will have frequent updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until it has been released. For example, changes may be reverted before a release is published. For the best results, use the latest published release.**
 
@@ -38,15 +38,20 @@ The API definition(s) are based on
 
 ### Added
  * Create kyc-age-verification User Story by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/23
+ * [kyc-age-verification] Add text on undocumented errors to OAS definition by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/10
+ * [kyc-age-verification] Add note to verifiedStatus description by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/13
+ * [kyc-age-verification] Add line 13 (API description for marketing) to API readiness checklists by @hdamker-bot (Admin) in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/8
 
 ### Changed
- * N/A
+ * [kyc-age-verification] Update x-correlator format by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/12
 
 ### Fixed
  * Alignment with Commonalities r3.3 by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/25
+ * Fix for YAML syntax error and other errors detected by linters by @rartych https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/18
+ * Swagger UI link within CHANGELOG.md for r1.1 is not correct Issue #17 https://github.com/camaraproject/KnowYourCustomerAgeVerification/issues/17 (fixed by Release r1.2 PR)
 
 ### Removed
- * N/A
+ * [kyc-age-verification] Remove AUTHENTICATION_REQUIRED error code by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/7
 
 ### New Contributors
  * N/A
@@ -108,6 +113,7 @@ The API definition(s) are based on
 # History of Changelog Know Your Customer Age Verification
 
 **The repository KnowYourCustomerAgeVerification was created for kyc-age-verification v0.2.0 and the previous versions of the kyc-age-verification API were stored in the old repository KnowYourCustomer.  Please refer to the CHANGELOG.md in [the old repository KnowYourCustomer](https://github.com/camaraproject/KnowYourCustomer) for Spring25 and before.**
+
 
 
 
