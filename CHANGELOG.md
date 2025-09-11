@@ -46,6 +46,7 @@ The API definition(s) are based on
  * [kyc-age-verification] Update x-correlator format by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/12
 
 ### Fixed
+* Fix for missing externalDocs object in the yaml by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/26 (M4 Release PR)
  * Alignment with Commonalities r3.3 by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/25
  * Fix for YAML syntax error and other errors detected by linters by @rartych https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/18
  * Swagger UI link within CHANGELOG.md for r1.1 is not correct Issue #17 https://github.com/camaraproject/KnowYourCustomerAgeVerification/issues/17 (fixed by Release r1.2 PR)
@@ -113,6 +114,7 @@ The API definition(s) are based on
 # History of Changelog Know Your Customer Age Verification
 
 **The repository KnowYourCustomerAgeVerification was created for kyc-age-verification v0.2.0 and the previous versions of the kyc-age-verification API were stored in the old repository KnowYourCustomer.  Please refer to the CHANGELOG.md in [the old repository KnowYourCustomer](https://github.com/camaraproject/KnowYourCustomer) for Spring25 and before.**
+
 
 
 
