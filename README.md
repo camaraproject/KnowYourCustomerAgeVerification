@@ -25,7 +25,11 @@ Sandbox API Repository to describe, develop, document, and test the KnowYourCust
 ## Release Information
 
 * Note: Please be aware that the project will have updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. For best results, use the latest available release.
-* **NEW: Pre-release of CAMARA KYC Age Verification is [r1.2](https://github.com/camaraproject/KnowYourCustomerAgeVerification/tree/r1.2)**. The Release Tag is [r1.2](https://github.com/camaraproject/KnowYourCustomerAgeVerification/releases/tag/r1.2).
+* **NEW: The latest public release of CAMARA KYC Age Verification is [r1.3](https://github.com/camaraproject/KnowYourCustomerAgeVerification/tree/r1.3)**. The Release Tag is [r1.3](https://github.com/camaraproject/KnowYourCustomerAgeVerification/releases/tag/r1.3).
+* API definition **with inline documentation**:
+  - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomerAgeVerification/blob/r1.3/code/API_definitions/kyc-age-verification.yaml)
+  - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomerAgeVerification/r1.3/code/API_definitions/kyc-age-verification.yaml&nocors)
+  - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomerAgeVerification/r1.3/code/API_definitions/kyc-age-verification.yaml&nocors)
 * **Releases of the CAMARA KYC Age Verification API until Spring25 are available in [KnowYourCustomer](https://github.com/camaraproject/KnowYourCustomer).**
 * For changes see [CHANGELOG.md](https://github.com/camaraproject/KnowYourCustomerAgeVerification/blob/main/CHANGELOG.md)    
 
