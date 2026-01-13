@@ -42,7 +42,7 @@ Sandbox API Repository to describe, develop, document, and test the KnowYourCust
 _The above section is automatically synchronized by CAMARA project-administration._
 <!-- CAMARA:RELEASE-INFO:END -->
 
-Note: **Releases of the CAMARA KYC Age Verification API until Spring25 are available in [KnowYourCustomer](https://github.com/camaraproject/KnowYourCustomer).**
+* **Releases of the CAMARA KYC Age Verification API until Spring25 are available in [KnowYourCustomer](https://github.com/camaraproject/KnowYourCustomer).**
 
 ## Contributing
 
