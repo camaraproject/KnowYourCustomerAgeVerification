@@ -195,7 +195,7 @@ components:
       $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
 
   parameters:
-      - $ref: "../common/CAMARA_common.yaml#/components/parameters/x-correlator"
+    - $ref: "../common/CAMARA_common.yaml#/components/parameters/x-correlator"
 
   schemas:
     VerifyRequestBody:
