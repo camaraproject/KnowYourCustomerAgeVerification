@@ -35,6 +35,10 @@ info:
     - `contentLock`: Indicates if the subscription associated with the phone number has any kind of content lock (i.e certain web content blocked).
     - `parentalControl`: Indicates if the subscription associated with the phone number has any kind of parental control activated.
 
+    ## Note
+    - `contentLock`: Web content lock indicates that access to certain websites or online content by an end user is restricted by default to ensure safe browsing, unless the end user has proven to be over a minimum required age limit.
+    - `parentalControl`: A parental control indicates that the end user is a minor, and parents have set restrictions on what services can be used to restrict their child's online activities.
+
     ## Errors
 
     - If the authentication access token is not valid, a `401 UNAUTHENTICATED` error is returned
