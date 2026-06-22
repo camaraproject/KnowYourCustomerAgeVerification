@@ -255,7 +255,7 @@ components:
 
     MiddleNames:
       type: "string"
-      maxLength: 100
+      maxLength: 150
       description: Middle name/s of the customer.
 
     FamilyNameAtBirth:
