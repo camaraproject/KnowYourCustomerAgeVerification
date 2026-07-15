@@ -36,7 +36,7 @@ info:
     - `parentalControl`: Indicates if the subscription associated with the phone number has any kind of parental control activated.
 
     ## Note
-    - `contentLock`: typically web content lock indicates that access to certain websites or online content by an end user is restricted by default to ensure safe browsing, unless the end user has proven to be over a minimum required age limit.
+    - `contentLock`: typically web content lock indicates that access to certain websites or online content by an end user is restricted by default to ensure safe browsing. It may happen that in some Markets/Telco Operators this feature is linked to the fact of the end user has proven to be over a minimum required age limit. That is, in case the end user has proven to be over a minimum required age limit contentLock can be disabled.
     - `parentalControl`: a parental control indicates typically that the end user is a minor, and parents have set restrictions on what services can be used to restrict their child's online activities.
 
     ## Errors
