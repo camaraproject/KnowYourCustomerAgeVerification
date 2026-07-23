@@ -75,11 +75,10 @@ Changes documented below are compared to version 0.2.1.
 
 * Enhance KYC age verification documentation by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/48
 * Commonalities alignment and fix validation warnings by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/47
-* Align_language_when_phoneNumber_required by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/42
 
 ### Fixed
 
-* N/A
+* Align_language_when_phoneNumber_required by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/42
 
 ### Removed
 
