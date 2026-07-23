@@ -1,7 +1,6 @@
 openapi: 3.0.3
 info:
   title: Know Your Customer Age Verification
-
   description: |
 
     # Summary
@@ -85,28 +84,23 @@ info:
 
     This API rejects requests with JSON request bodies that contain properties not declared in this specification, at any nesting level. Unknown properties result in a `400 INVALID_ARGUMENT` response.
     <!-- CAMARA:MANDATORY:request-body-strictness:END -->
-
-  version: wip
-  x-camara-commonalities: 0.6
+  version: 0.3.0-rc.1
+  x-camara-commonalities: 0.8.0
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-
-externalDocs:
-  description: Product documentation at CAMARA
-  url: https://github.com/camaraproject/KnowYourCustomerAgeVerification
-
 servers:
-  - url: "{apiRoot}/kyc-age-verification/vwip"
+  - url: '{apiRoot}/kyc-age-verification/v0.3rc1'
     variables:
       apiRoot:
         default: http://localhost:9091
         description: API root, defined by the service provider, e.g. `api.example.com` or `api.example.com/somepath`
-
 tags:
   - name: Age Verification
     description: Operations to verify the age of a user.
-
+externalDocs:
+  description: Product documentation at CAMARA
+  url: https://github.com/camaraproject/KnowYourCustomerAgeVerification
 paths:
   /verify:
     post:
@@ -119,16 +113,12 @@ paths:
         As it is possible that the person holding the contract and the end-user of the subscription may not be the same, the endpoint also admits a list of optional properties to be included in the request to improve the identification. The response may optionally include the `identityMatchScore` property with a value that indicates how certain it is that the information returned relates to the person that the API Client is requesting. To increase the reliability of the information returned, the API Provider may include in the response the `verifiedStatus` property, indicating whether the identity information in its possession has been verified against an identification document legally accepted as an age verification document (Note). Note: Depending on the country, credit-check or other mechanism can be used instead of official identification for Age Verification. For details, please contact API Provider.
 
         If the API Client indicates request properties `includeContentLock` or `includeParentalControl` with value `true` and the API Provider implements this functionality, then the response will also include `contentLock` and `parentalControl` properties to indicate if the subscription has any kind of content filtering enabled. On the other hand, if the request properties are not included or the API Client specifies value `false`, then the response properties will not be returned. If the API Provider doesn't implement this functionality, request properties will be ignored and response properties won't be returned in any case.
-
       operationId: verifyAge
-
       security:
         - openId:
             - kyc-age-verification:verify
-
       parameters:
-        - $ref: "../common/CAMARA_common.yaml#/components/parameters/x-correlator"
-
+        - $ref: '#/components/parameters/x-correlator'
       requestBody:
         required: true
         content:
@@ -139,7 +129,7 @@ paths:
               Two-Legged Access Token Example:
                 value:
                   ageThreshold: 18
-                  phoneNumber: '+34629255833' # Note: Only required in case using a two-legged access token has been agreed between API Provider and API Consumer; otherwise, do not include phoneNumber
+                  phoneNumber: '+34629255833'
                   idDocument: 66666666q
                   name: Federica Sanchez Arjona
                   givenName: Federica
@@ -147,7 +137,7 @@ paths:
                   middleNames: Sanchez
                   familyNameAtBirth: YYYY
                   birthdate: '1978-08-22'
-                  email: "federicaSanchez.Arjona@example.com"
+                  email: federicaSanchez.Arjona@example.com
                   includeContentLock: true
                   includeParentalControl: true
               Three-Legged Access Token Example:
@@ -160,16 +150,15 @@ paths:
                   middleNames: Sanchez
                   familyNameAtBirth: YYYY
                   birthdate: '1978-08-22'
-                  email: "federicaSanchez.Arjona@gmail.com"
+                  email: federicaSanchez.Arjona@gmail.com
                   includeContentLock: true
                   includeParentalControl: true
-
       responses:
         '200':
           description: OK
           headers:
             x-correlator:
-              $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+              $ref: '#/components/headers/x-correlator'
           content:
             application/json:
               schema:
@@ -177,185 +166,201 @@ paths:
               examples:
                 KYC_200Example:
                   value:
-                    ageCheck: "true"
+                    ageCheck: 'true'
                     verifiedStatus: true
                     identityMatchScore: 90
-                    contentLock: "false"
-                    parentalControl: "true"
-        "400":
+                    contentLock: 'false'
+                    parentalControl: 'true'
+        '400':
           $ref: '#/components/responses/Generic400'
-        "401":
+        '401':
           $ref: '#/components/responses/Generic401'
-        "403":
+        '403':
           $ref: '#/components/responses/Generic403'
-        "404":
+        '404':
           $ref: '#/components/responses/Generic404'
-        "422":
+        '422':
           $ref: '#/components/responses/Generic422'
-
 components:
   securitySchemes:
     openId:
-      $ref: "../common/CAMARA_common.yaml#/components/securitySchemes/openId"
-
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+      description: OpenID Connect authentication via discovery metadata.
   schemas:
     VerifyRequestBody:
-      type: "object"
+      type: object
       description: Request to verify the age threshold provided.
       required:
         - ageThreshold
       properties:
         ageThreshold:
-          $ref: "#/components/schemas/AgeThreshold"
+          $ref: '#/components/schemas/AgeThreshold'
         phoneNumber:
-          $ref: "../common/CAMARA_common.yaml#/components/schemas/PhoneNumber"
+          $ref: '#/components/schemas/PhoneNumber'
         idDocument:
-          $ref: "#/components/schemas/IdDocument"
+          $ref: '#/components/schemas/IdDocument'
         name:
-          $ref: "#/components/schemas/Name"
+          $ref: '#/components/schemas/Name'
         givenName:
-          $ref: "#/components/schemas/GivenName"
+          $ref: '#/components/schemas/GivenName'
         familyName:
-          $ref: "#/components/schemas/FamilyName"
+          $ref: '#/components/schemas/FamilyName'
         middleNames:
-          $ref: "#/components/schemas/MiddleNames"
+          $ref: '#/components/schemas/MiddleNames'
         familyNameAtBirth:
-          $ref: "#/components/schemas/FamilyNameAtBirth"
+          $ref: '#/components/schemas/FamilyNameAtBirth'
         birthdate:
-          $ref: "#/components/schemas/Birthdate"
+          $ref: '#/components/schemas/Birthdate'
         email:
-          $ref: "#/components/schemas/Email"
+          $ref: '#/components/schemas/Email'
         includeContentLock:
-          $ref: "#/components/schemas/IncludeContentLock"
+          $ref: '#/components/schemas/IncludeContentLock'
         includeParentalControl:
-          $ref: "#/components/schemas/IncludeParentalControl"
-
+          $ref: '#/components/schemas/IncludeParentalControl'
     AgeThreshold:
-      type: "integer"
+      type: integer
       format: int32
       minimum: 0
       maximum: 120
       description: The age to be verified. The indicated range is a global definition of maximum and minimum values allowed to be requested. It is important to note that this range might be more restrictive in some implementations due to local regulations of a country i.e. A country does not allow to request for an age under 18. This limitation must be informed during the onboarding process.
-
     IdDocument:
-      type: "string"
+      type: string
       maxLength: 50
       description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
-
     Name:
-      type: "string"
+      type: string
       maxLength: 256
       description: Complete name of the customer, usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
-
     GivenName:
-      type: "string"
+      type: string
       maxLength: 100
       description: First/given name or compound first/given name of the customer.
-
     FamilyName:
-      type: "string"
+      type: string
       maxLength: 150
       description: Last name, family name, or surname of the customer.
-
     MiddleNames:
-      type: "string"
+      type: string
       maxLength: 100
       description: Middle name/s of the customer.
-
     FamilyNameAtBirth:
-      type: "string"
+      type: string
       maxLength: 150
       description: Last/family/sur- name at birth of the customer.
-
     Birthdate:
       type: string
       format: date
       maxLength: 10
       description: The birthdate of the customer, in RFC 3339 / ISO 8601 calendar date format (YYYY-MM-DD).
-
     Email:
       type: string
       format: email
       maxLength: 254
       description: Email address of the customer in the RFC specified format (local-part@domain).
-
     IncludeContentLock:
       type: boolean
       default: false
       description: If this parameter is included in the request with value `true`, the response property `contentLock` will be returned. If it is not included or its value is `false`, the response property will not be returned.
-
     IncludeParentalControl:
       type: boolean
       default: false
       description: If this parameter is included in the request with value `true`, the response property `parentalControl` will be returned. If it is not included or its value is `false`, the response property will not be returned.
-
     VerifyResponseBody:
-      type: "object"
+      type: object
       description: Response to an age verification request
       required:
         - ageCheck
       properties:
         ageCheck:
-          $ref: "#/components/schemas/AgeCheck"
+          $ref: '#/components/schemas/AgeCheck'
         verifiedStatus:
-          $ref: "#/components/schemas/VerifiedStatus"
+          $ref: '#/components/schemas/VerifiedStatus'
         identityMatchScore:
-          $ref: "#/components/schemas/IdentityMatchScore"
+          $ref: '#/components/schemas/IdentityMatchScore'
         contentLock:
-          $ref: "#/components/schemas/ContentLock"
+          $ref: '#/components/schemas/ContentLock'
         parentalControl:
-          $ref: "#/components/schemas/ParentalControl"
-
+          $ref: '#/components/schemas/ParentalControl'
     AgeCheck:
-      type: "string"
+      type: string
       maxLength: 15
       description: Indicate `"true"` when the age of the user is the same age or older than the age threshold (age >= age threshold), and `"false"` if not (age < age threshold). If the API Provider doesn't have enough information to perform the validation, a `not_available` can be returned.
       enum:
         - 'true'
         - 'false'
-        - 'not_available'
-
+        - not_available
     VerifiedStatus:
-      type: "boolean"
+      type: boolean
       description: |
         Indicate `true` if the information provided has been compared against information based on an identification document legally accepted as an age verification document (Note), otherwise indicate `false`.  Note: Depending on the country, credit-check or other mechanism can be used instead of official identification for Age Verification. For details, please contact API Provider.
-
     IdentityMatchScore:
-      type: "integer"
+      type: integer
       format: int32
       minimum: 0
       maximum: 100
       description: The overall score of identity information available in the API Provider, information either provided in the request body comparing it to the one that the API Provider holds or directly using internal API Provider's information. It is optional for the API Provider to return the Identity match score.
-
     ContentLock:
-      type: "string"
+      type: string
       maxLength: 13
       description: Indicate `"true"` if the subscription associated with the phone number has any kind of content lock (i.e certain web content blocked) and `"false"` if not. If the information is not available the value `not_available` can be returned.
       enum:
         - 'true'
         - 'false'
-        - 'not_available'
-
+        - not_available
     ParentalControl:
-      type: "string"
+      type: string
       maxLength: 13
       description: Indicate `"true"` if the subscription associated with the phone number has any kind of parental control activated and `"false"` if not. If the information is not available the value `not_available` can be returned.
       enum:
         - 'true'
         - 'false'
-        - 'not_available'
-
+        - not_available
+    XCorrelator:
+      type: string
+      description: Correlator string, UUID format recommended but any string matching the pattern can be used
+      pattern: ^[a-zA-Z0-9-_:;.\/<>{}]{0,256}$
+      maxLength: 256
+      example: b4333c46-49c0-4f62-80d7-f0ef930f1c46
+    PhoneNumber:
+      description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
+      type: string
+      pattern: ^\+[1-9][0-9]{4,14}$
+      maxLength: 16
+      example: '+123456789'
+    ErrorInfo:
+      type: object
+      description: A structured error response providing details about a failed request, including the HTTP status code, an error code, and a human-readable message
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          format: int32
+          minimum: 100
+          maximum: 599
+          description: HTTP response status code
+        code:
+          type: string
+          maxLength: 96
+          description: A human-readable code to describe the error
+        message:
+          type: string
+          maxLength: 512
+          description: A human-readable description of what the event represents
   responses:
     Generic400:
       description: Bad Request
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -378,17 +383,16 @@ components:
                 status: 400
                 code: OUT_OF_RANGE
                 message: Client specified an invalid range.
-
     Generic401:
       description: Unauthorized
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -404,17 +408,16 @@ components:
                 status: 401
                 code: UNAUTHENTICATED
                 message: Request not authenticated due to missing, invalid, or expired credentials. A new authentication is required.
-
     Generic403:
       description: Forbidden
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -430,17 +433,16 @@ components:
                 status: 403
                 code: PERMISSION_DENIED
                 message: Client does not have sufficient permissions to perform this action.
-
     Generic404:
       description: Not found
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -456,17 +458,16 @@ components:
                 status: 404
                 code: IDENTIFIER_NOT_FOUND
                 message: The phone number provided is not associated with a customer account
-
     Generic422:
       description: Unprocessable Content
       headers:
         x-correlator:
-          $ref: "../common/CAMARA_common.yaml#/components/headers/x-correlator"
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "../common/CAMARA_common.yaml#/components/schemas/ErrorInfo"
+              - $ref: '#/components/schemas/ErrorInfo'
               - type: object
                 properties:
                   status:
@@ -496,3 +497,15 @@ components:
                 status: 422
                 code: UNNECESSARY_IDENTIFIER
                 message: An explicit phone number has been provided when one is already associated with the access token
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        $ref: '#/components/schemas/XCorrelator'
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        $ref: '#/components/schemas/XCorrelator'
