@@ -2,7 +2,7 @@ repository:
   repository_name: KnowYourCustomerAgeVerification
   release_tag: r2.1
   release_type: pre-release-rc
-  release_date: null
+  release_date: '2026-09-01T05:15:37Z'
   src_commit_sha: f1d12f34fb16543390b072409aebe06af27a972a
 apis:
 - api_name: kyc-age-verification
