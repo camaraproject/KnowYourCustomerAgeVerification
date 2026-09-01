@@ -167,7 +167,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     Given the header "Authorization" is set to an expired access token
     When the HTTP "POST" request is sent
     Then the response status code is 401
-    And the response property "$.code" is "UNAUTHENTICATED" or "AUTHENTICATION_REQUIRED"
+    And the response property "$.code" is "UNAUTHENTICATED"
     And the response property "$.message" contains a user friendly text
     And the response property "$.status" is 401
 
