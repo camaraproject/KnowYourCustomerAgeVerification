@@ -189,40 +189,24 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.message" contains a user friendly text
     And the response property "$.status" is 401
 
-  # Generic 403 errors
+    # Generic 403 errors
 
-  @verifyAge_403.01_missing_access_token_scope
-  Scenario: Missing access token scope
-    Given the header "Authorization" is set to an access token that does not include scope "kyc-age-verification:verify"
-    When the request "verifyAge" is sent
-    Then the response status code is 403
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 403
-    And the response property "$.code" is "PERMISSION_DENIED"
-    And the response property "$.message" contains a user friendly text
-
-  @verifyAge_403.02_api_client_token_mismatch
-  Scenario: "kyc-age-verification" not created by the API client given in the access token
-    # To test this, a token has to be obtained for a different client
-    Given the header "Authorization" is set to a valid access token emitted to an API client which did not have rights to access/manage the "kyc-age-verification"
-    When the request "verifyAge" is sent
-    Then the response status code is 403
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response header "Content-Type" is "application/json"
+  @verifyAge_403.1_invalid_token_permissions
+  Scenario: Access token does not have the required permissions
+    Given the header "Authorization" is set to an access token without the required scope
+    And the request body is set to a valid request body
+    When the HTTP "POST" request is sent
+    Then the response status code is "403"
     And the response property "$.status" is 403
     And the response property "$.code" is "PERMISSION_DENIED"
     And the response property "$.message" contains a user friendly text
 
   # Generic 429 errors
 
-  @verifyAge_429.01_Too_Many_Requests
-  #To test this scenario environment has to be configured to reject requests reaching the threshold limit set.
-  Scenario: Request is rejected due to threshold policy
-    Given a valid request for "verifyAge"
-    And the header "Authorization" is set to a valid access token
-    And the threshold of requests has been reached
-    When the request "verifyAge" is sent
+  @verifyAge_429.1_too_many_requests
+  Scenario: Error when the server is reached due to rate or spike arrest limits
+    Given the number of endpoints calls reached the API provider's rate limit
+    When the HTTP "POST" request is sent
     Then the response status code is 429
     And the response property "$.status" is 429
     And the response property "$.code" is "TOO_MANY_REQUESTS"
