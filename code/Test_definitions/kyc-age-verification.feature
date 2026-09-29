@@ -124,7 +124,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
   # Generic 400 errors
 
-  @verifyAge_400.1_no_request_body
+  @verifyAge_400.01_no_request_body
   Scenario: Missing request body
     Given the request body is not included
     When the HTTP "POST" request is sent
@@ -133,7 +133,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
 
-  @verifyAge_400.2_empty_request_body
+  @verifyAge_400.02_empty_request_body
   Scenario: Empty object as request body
     Given the request body is set to "{}"
     When the HTTP "POST" request is sent
@@ -142,7 +142,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
 
-  @verifyAge_400.3_out_of_range
+  @verifyAge_400.03_out_of_range
   Scenario: Error when ageThreshold is out of range
     Given the request body property "$.ageThreshold" is set to a value that is not withing the range defined in OAS schema "#/components/schemas/AgeThreshold"
     When the HTTP "POST" request is sent
@@ -151,7 +151,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.code" is "OUT_OF_RANGE"
     And the response property "$.message" contains a user friendly text
 
-  @verifyAge_400.4_invalid_argument
+  @verifyAge_400.04_invalid_argument
   Scenario: Invalid Argument. Generic Syntax Exception
     Given the request body is set to any value which is not compliant with the OAS schema at "/components/schemas/VerifyRequestBody"
     When the HTTP "POST" request is sent
@@ -162,7 +162,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
   # Generic 401 errors
 
-  @verifyAge_401.1_expired_access_token
+  @verifyAge_401.01_expired_access_token
   Scenario: Error response for expired access token
     Given the header "Authorization" is set to an expired access token
     When the HTTP "POST" request is sent
@@ -171,7 +171,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.message" contains a user friendly text
     And the response property "$.status" is 401
 
-  @verifyAge_401.2_invalid_access_token
+  @verifyAge_401.02_invalid_access_token
   Scenario: Error response for invalid access token
     Given the header "Authorization" is set to an invalid access token which is invalid for reasons other than lifetime expiry
     When the HTTP "POST" request is sent
@@ -180,7 +180,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.message" contains a user friendly text
     And the response property "$.status" is 401
 
-  @verifyAge_401.3_no_header_authorization
+  @verifyAge_401.03_no_header_authorization
   Scenario: Error response for no header "Authorization"
     Given the header "Authorization" is not sent
     When the HTTP "POST" request is sent
@@ -191,7 +191,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
     # Generic 403 errors
 
-  @verifyAge_403.1_invalid_token_permissions
+  @verifyAge_403.01_invalid_token_permissions
   Scenario: Access token does not have the required permissions
     Given the header "Authorization" is set to an access token without the required scope
     And the request body is set to a valid request body
@@ -203,7 +203,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
   # Generic 429 errors
 
-  @verifyAge_429.1_too_many_requests
+  @verifyAge_429.01_too_many_requests
   Scenario: Error when the server is reached due to rate or spike arrest limits
     Given the number of endpoints calls reached the API provider's rate limit
     When the HTTP "POST" request is sent
