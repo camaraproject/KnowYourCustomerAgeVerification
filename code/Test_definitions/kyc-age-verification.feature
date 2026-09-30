@@ -173,7 +173,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
     Examples:
       | required_property |
-      | {value}           |
+      | $.ageThreshold    |
 
   @kyc-age-verification_verifyAge_400.05_missing_required_property
   Scenario Outline: Error response for missing required property in request body
@@ -188,7 +188,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
     Examples:
       | required_property |
-      | {value}           |
+      | $.ageThreshold    |
 
   @kyc-age-verification_verifyAge_400.06_invalid_x-correlator
   Scenario: Invalid x-correlator header
@@ -274,7 +274,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
   # Generic 429 scenarios
 
-  @kyc-age-verification_verifyAge_429.01_Too_Many_Requests  
+  @kyc-age-verification_verifyAge_429.01_Too_Many_Requests
   #To test this scenario environment has to be configured to reject requests reaching the threshold limit set.
   Scenario: Request is rejected due to threshold policy
     Given a valid request for "verifyAge"
@@ -298,7 +298,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
 
-# Typically with a 2-legged access token										  
+# Typically with a 2-legged access token
   @kyc-age-verification_C02.02_phone_number_not_found
   Scenario: Phone number not found
     Given the header "Authorization" is set to a valid access token which does not identify a single phone number
@@ -309,7 +309,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.code" is "IDENTIFIER_NOT_FOUND"
     And the response property "$.message" contains a user friendly text
 
-# Only with a 3-legged access token									 
+# Only with a 3-legged access token
   @kyc-age-verification_C02.03_unnecessary_phone_number
   Scenario: Phone number not to be included when it can be deduced from the access token
     Given the header "Authorization" is set to a valid access token identifying a phone number
