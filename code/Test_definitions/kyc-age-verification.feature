@@ -162,7 +162,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 # applicable to properties in the request body which are of type object, and have required properties or minProperties in their value
   @kyc-age-verification_verifyAge_400.04_empty_property
   Scenario Outline: Error response for empty property in request body
-    Given the request body property "$.ageThreshold" is set to {}
+    Given the request body property "<required_property>" is set to {}
     When the request "verifyAge" is sent
     Then the response status code is 400
     And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -171,9 +171,13 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
 
+    Examples:
+      | required_property |
+      | $.ageThreshold    |
+
   @kyc-age-verification_verifyAge_400.05_missing_required_property
   Scenario Outline: Error response for missing required property in request body
-    Given the request body property "$.ageThreshold" is not included
+    Given the request body property "<required_property>" is not included
     When the request "verifyAge" is sent
     Then the response status code is 400
     And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -181,6 +185,10 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
+
+    Examples:
+      | required_property |
+      | $.ageThreshold    |
 
   @kyc-age-verification_verifyAge_400.06_invalid_x-correlator
   Scenario: Invalid x-correlator header
