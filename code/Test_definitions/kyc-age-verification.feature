@@ -122,7 +122,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response contains property "$.ageCheck" whose value is one of ["true", "false", "not_available"]
     And the response contains property "$.parentalControl" whose value is one of ["true", "false", "not_available"]
 
-   # Generic 401 errors
+   # Generic 400 errors
 
   @kyc-age-verification_verifyAge_400.01_schema_not_compliant
   Scenario: Invalid Argument. Generic Syntax Exception
