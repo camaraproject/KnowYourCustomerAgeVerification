@@ -71,7 +71,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Fixed
 
-* Corrected the 401 test scenario so that it only expects the error code `UNAUTHENTICATED` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Corrected the expired access token test scenario so that it only expects the error code `UNAUTHENTICATED` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
 
 ### Removed
 
