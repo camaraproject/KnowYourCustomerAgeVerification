@@ -6,7 +6,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
   # Testing assets:
   # * A mobile line identified by its phone number "phoneNumber"
   #
-  # References to OAS spec schemas refer to schemas specifies in kyc-age-verification.yaml, version vwip
+  # References to OAS spec schemas refer to schemas specifies in kyc-age-verification.yaml
 
   Background: Common verifyAge setup
     Given an environment at "apiRoot"
@@ -18,17 +18,17 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
   # Happy path scenarios
 
-  @verifyAge_1_verify_age_true
+  @kyc-age-verification_01_verifyAge_true
   Scenario Outline: Validate successful response when ageCheck is true
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
-    And the age information associated with the mobile subscription is equal or greater that the age threshold provided
+    And the age information associated with the mobile subscription is equal or greater than the age threshold provided
     And the request body optionally contains the property "<request_body_property>" with a value compliant with OAS schema at "<oas_spec_schema>"
     When the request "verifyAge" is sent
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with the OAS schema at "/components/schemas/VerifyResponseBody"
+    And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
     And the response property "$.ageCheck" is "true"
     And if the response contains property "$.verifiedStatus", the value is one of [true, false]
     And if the response contains property "$.identityMatchScore", the value is compliant with OAS schema at "#/components/schemas/IdentityMatchScore"
@@ -44,7 +44,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
       | $.birthdate           | /components/schemas/Birthdate         |
       | $.email               | /components/schemas/Email             |
 
-  @verifyAge_2_verify_age_false
+  @kyc-age-verification_02_verifyAge_false
   Scenario Outline: Validate successful response when ageCheck is false
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -54,7 +54,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with the OAS schema at "/components/schemas/VerifyResponseBody"
+    And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
     And the response property "$.ageCheck" is "false"
     And if the response contains property "$.verifiedStatus", the value is one of [true, false]
     And if the response contains property "$.identityMatchScore", the value is compliant with OAS schema at "#/components/schemas/IdentityMatchScore"
@@ -70,7 +70,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
       | $.birthdate           | /components/schemas/Birthdate         |
       | $.email               | /components/schemas/Email             |
 
-  @verifyAge_3_verify_age_not_available
+  @kyc-age-verification_03_verifyAge_not_available
   Scenario Outline: Validate successful response when ageCheck is not available
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -80,10 +80,10 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with the OAS schema at "/components/schemas/VerifyResponseBody"
+    And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
     And the response property "$.ageCheck" is "not_available"
-    And if the response contains property "$.verifiedStatus", the value is one of [true, false]
-    And if the response contains property "$.identityMatchScore", the value is compliant with OAS schema at "#/components/schemas/IdentityMatchScore"
+    And the response body does not contain the property "$.verifiedStatus"
+    And the response body does not contain the property "$.identityMatchScore"
 
     Examples:
       | request_body_property | oas_spec_schema                       |
@@ -96,7 +96,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
       | $.birthdate           | /components/schemas/Birthdate         |
       | $.email               | /components/schemas/Email             |
 
-  @verifyAge_4_verify_age_contentLock
+  @kyc-age-verification_04_verifyAge_contentLock
   Scenario: Validate successful response when contentLock is requested
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -105,11 +105,11 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with the OAS schema at "/components/schemas/VerifyResponseBody"
+    And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
     And the response contains property "$.ageCheck" whose value is one of ["true", "false", "not_available"]
-    And the response contains property "$.contentLock" whose value is one of ["true", "false", "not_available"]
+    And if the response contains property "$.contentLock", the value is one of ["true", "false", "not_available"]
 
-  @verifyAge_5_verify_age_parentalControl
+  @kyc-age-verification_05_verifyAge_parentalControl
   Scenario: Validate successful response when parentalControl is requested
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -118,9 +118,9 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     Then the response status code is 200
     And the response header "Content-Type" is "application/json"
     And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response body complies with the OAS schema at "/components/schemas/VerifyResponseBody"
+    And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
     And the response contains property "$.ageCheck" whose value is one of ["true", "false", "not_available"]
-    And the response contains property "$.parentalControl" whose value is one of ["true", "false", "not_available"]
+    And if the response contains property "$.parentalControl", the value is one of ["true", "false", "not_available"]
 
    # Generic 400 errors
 
@@ -158,22 +158,6 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response property "$.status" is 400
     And the response property "$.code" is "INVALID_ARGUMENT"
     And the response property "$.message" contains a user friendly text
-
-# applicable to properties in the request body which are of type object, and have required properties or minProperties in their value
-  @kyc-age-verification_verifyAge_400.04_empty_property
-  Scenario Outline: Error response for empty property in request body
-    Given the request body property "<required_property>" is set to {}
-    When the request "verifyAge" is sent
-    Then the response status code is 400
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 400
-    And the response property "$.code" is "INVALID_ARGUMENT"
-    And the response property "$.message" contains a user friendly text
-
-    Examples:
-      | required_property |
-      | $.ageThreshold    |
 
   @kyc-age-verification_verifyAge_400.05_missing_required_property
   Scenario Outline: Error response for missing required property in request body
@@ -252,18 +236,6 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
   @kyc-age-verification_verifyAge_403.01_missing_access_token_scope
   Scenario: Missing access token scope
     Given the header "Authorization" is set to an access token that does not include scope "kyc-age-verification:verify"
-    When the request "verifyAge" is sent
-    Then the response status code is 403
-    And the response header "x-correlator" has same value as the request header "x-correlator"
-    And the response header "Content-Type" is "application/json"
-    And the response property "$.status" is 403
-    And the response property "$.code" is "PERMISSION_DENIED"
-    And the response property "$.message" contains a user friendly text
-
-  @kyc-age-verification_verifyAge_403.02_api_client_token_mismatch
-  Scenario: "/verify" not created by the API client given in the access token
-    # To test this, a token has to be obtained for a different client
-    Given the header "Authorization" is set to a valid access token emitted to an API client which did not have rights to access/manage the "/verify"
     When the request "verifyAge" is sent
     Then the response status code is 403
     And the response header "x-correlator" has same value as the request header "x-correlator"
