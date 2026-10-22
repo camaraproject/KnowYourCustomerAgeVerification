@@ -60,7 +60,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Added
 
-* N/A
+* Documented the `429` error response by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
 
 ### Changed
 
