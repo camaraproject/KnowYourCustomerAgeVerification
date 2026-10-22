@@ -60,7 +60,8 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Added
 
-* Documented the `429` error response by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Documented the `429 TOO_MANY_REQUESTS` error response by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Added test scenarios for `400 INVALID_ARGUMENT` (request body not compliant with the schema, missing required property, invalid `x-correlator`), `403 PERMISSION_DENIED` and `429 TOO_MANY_REQUESTS` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
 
 ### Changed
 
