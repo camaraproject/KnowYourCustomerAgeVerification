@@ -65,7 +65,10 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Changed
 
-* N/A
+* Replaced the industry abbreviations "CSP" and "MNO" with "network operator" in the API description by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Updated the release plan to align the API with Commonalities r4.4, the release tag with r2.2 and the target API version with 1.0.0 by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/63
+* Clarified in the API description what the response contains when `ageCheck` is `not_available`: `verifiedStatus` and `identityMatchScore` are not returned, while `contentLock` and `parentalControl` may still be returned because they are evaluated independently by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/62
+* Aligned the API definition and test definitions with Commonalities r4.4: error responses now use the shared Commonalities definitions instead of the deprecated `Generic*` ones, and test scenarios were renamed and extended with 400, 403 and 429 cases by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
 
 ### Fixed
 
