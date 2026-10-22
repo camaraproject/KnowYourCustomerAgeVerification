@@ -36,10 +36,7 @@ The API definition(s) are based on
 <summary>Candidate changes (auto-generated from merged PRs)</summary>
 
 ## What's Changed
-* Release Automation: Post-release sync (r2.1) by @camara-release-automation[bot] in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/58
 * Release r2.1 review issues by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
-* Update release-plan.yaml - New Commonalities version alignment by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/63
-* Sync common files from Commonalities r4.4 by @camara-release-automation[bot] in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/64
 * Clarify output behavior when ageCheck is not_available by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/62
 * Commonalities r4.4 alignment by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
 
