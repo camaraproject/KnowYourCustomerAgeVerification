@@ -18,7 +18,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
   # Happy path scenarios
 
-  @kyc-age-verification_01_verifyAge_true
+  @kyc-age-verification_verifyAge_01_true
   Scenario Outline: Validate successful response when ageCheck is true
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -35,20 +35,20 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
     Examples:
       | request_body_property | oas_spec_schema                       |
-      | $.idDocument          | /components/schemas/IdDocument        |
-      | $.name                | /components/schemas/Name              |
-      | $.givenName           | /components/schemas/GivenName         |
-      | $.familyName          | /components/schemas/FamilyName        |
-      | $.middleNames         | /components/schemas/MiddleNames       |
-      | $.familyNameAtBirth   | /components/schemas/FamilyNameAtBirth |
-      | $.birthdate           | /components/schemas/Birthdate         |
-      | $.email               | /components/schemas/Email             |
+      | $.idDocument          | #/components/schemas/IdDocument        |
+      | $.name                | #/components/schemas/Name              |
+      | $.givenName           | #/components/schemas/GivenName         |
+      | $.familyName          | #/components/schemas/FamilyName        |
+      | $.middleNames         | #/components/schemas/MiddleNames       |
+      | $.familyNameAtBirth   | #/components/schemas/FamilyNameAtBirth |
+      | $.birthdate           | #/components/schemas/Birthdate         |
+      | $.email               | #/components/schemas/Email             |
 
-  @kyc-age-verification_02_verifyAge_false
+  @kyc-age-verification_verifyAge_02_false
   Scenario Outline: Validate successful response when ageCheck is false
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
-    And the age information associated with the mobile subscription is lower that the age threshold provided
+    And the age information associated with the mobile subscription is lower than the age threshold provided
     And the request body optionally contains the property "<request_body_property>" with a value compliant with OAS schema at "<oas_spec_schema>"
     When the request "verifyAge" is sent
     Then the response status code is 200
@@ -61,16 +61,16 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
     Examples:
       | request_body_property | oas_spec_schema                       |
-      | $.idDocument          | /components/schemas/IdDocument        |
-      | $.name                | /components/schemas/Name              |
-      | $.givenName           | /components/schemas/GivenName         |
-      | $.familyName          | /components/schemas/FamilyName        |
-      | $.middleNames         | /components/schemas/MiddleNames       |
-      | $.familyNameAtBirth   | /components/schemas/FamilyNameAtBirth |
-      | $.birthdate           | /components/schemas/Birthdate         |
-      | $.email               | /components/schemas/Email             |
+      | $.idDocument          | #/components/schemas/IdDocument        |
+      | $.name                | #/components/schemas/Name              |
+      | $.givenName           | #/components/schemas/GivenName         |
+      | $.familyName          | #/components/schemas/FamilyName        |
+      | $.middleNames         | #/components/schemas/MiddleNames       |
+      | $.familyNameAtBirth   | #/components/schemas/FamilyNameAtBirth |
+      | $.birthdate           | #/components/schemas/Birthdate         |
+      | $.email               | #/components/schemas/Email             |
 
-  @kyc-age-verification_03_verifyAge_not_available
+  @kyc-age-verification_verifyAge_03_not_available
   Scenario Outline: Validate successful response when ageCheck is not available
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -87,16 +87,16 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
     Examples:
       | request_body_property | oas_spec_schema                       |
-      | $.idDocument          | /components/schemas/IdDocument        |
-      | $.name                | /components/schemas/Name              |
-      | $.givenName           | /components/schemas/GivenName         |
-      | $.familyName          | /components/schemas/FamilyName        |
-      | $.middleNames         | /components/schemas/MiddleNames       |
-      | $.familyNameAtBirth   | /components/schemas/FamilyNameAtBirth |
-      | $.birthdate           | /components/schemas/Birthdate         |
-      | $.email               | /components/schemas/Email             |
+      | $.idDocument          | #/components/schemas/IdDocument        |
+      | $.name                | #/components/schemas/Name              |
+      | $.givenName           | #/components/schemas/GivenName         |
+      | $.familyName          | #/components/schemas/FamilyName        |
+      | $.middleNames         | #/components/schemas/MiddleNames       |
+      | $.familyNameAtBirth   | #/components/schemas/FamilyNameAtBirth |
+      | $.birthdate           | #/components/schemas/Birthdate         |
+      | $.email               | #/components/schemas/Email             |
 
-  @kyc-age-verification_04_verifyAge_contentLock
+  @kyc-age-verification_verifyAge_04_contentLock
   Scenario: Validate successful response when contentLock is requested
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -109,7 +109,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response contains property "$.ageCheck" whose value is one of ["true", "false", "not_available"]
     And if the response contains property "$.contentLock", the value is one of ["true", "false", "not_available"]
 
-  @kyc-age-verification_05_verifyAge_parentalControl
+  @kyc-age-verification_verifyAge_05_parentalControl
   Scenario: Validate successful response when parentalControl is requested
     Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
@@ -185,7 +185,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
 
   @kyc-age-verification_verifyAge_400.07_out_of_range
   Scenario: Error when ageThreshold is out of range
-    Given the request body property "$.ageThreshold" is set to a value that is not withing the range defined in OAS schema "#/components/schemas/AgeThreshold"
+    Given the request body property "$.ageThreshold" is set to a value that is not within the range defined in OAS schema "#/components/schemas/AgeThreshold"
     When the request "verifyAge" is sent
     Then the response status code is 400
     And the response property "$.status" is 400
