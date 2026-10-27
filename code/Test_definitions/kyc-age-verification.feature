@@ -99,7 +99,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
   @kyc-age-verification_verifyAge_04_contentLock
   Scenario: Validate successful response when contentLock is requested
     Given the contentLock functionality is implemented and supported by the provider
-    Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
+    And a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
     And the request body property "$.includeContentLock" is set to true
     When the request "verifyAge" is sent
@@ -113,7 +113,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
   @kyc-age-verification_verifyAge_05_parentalControl
   Scenario: Validate successful response when parentalControl is requested
     Given the parentalControl functionality is implemented and supported by the provider
-    Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
+    And a valid testing phone number supported by the service, identified by the access token or provided in the request body
     And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
     And the request body property "$.includeParentalControl" is set to true
     When the request "verifyAge" is sent
