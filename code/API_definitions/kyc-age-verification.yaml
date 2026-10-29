@@ -5,7 +5,7 @@ info:
   description: |
 
     # Summary
-    This API provides the API Consumer with the ability to check if the subscriber associated to the provided phone number is older than a provided age, in order to provide age-restricted services, access to its age-restricted website etc..
+    This API provides the API Consumer with the ability to check if the subscriber associated to the provided phone number is of the same age or older than a provided age, in order to provide age-restricted services, access to its age-restricted website etc..
 
     # API functionality
 
@@ -13,7 +13,7 @@ info:
 
     - `POST /verify`
 
-      Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and checks if the age of the subscriber is above the age threshold in the request.
+      Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and checks if the age of the subscriber is is equal to or above the age threshold in the request.
       Additionally, as optional function, provides:
       - (1) if age check is done against some form of official identification (see note) (indicated by including verifiedStatus = true).
       - (2) an overall score of how reliable the response is (in the identityMatchScore), which is derived from both information provided in the request and information that the Operator holds.
