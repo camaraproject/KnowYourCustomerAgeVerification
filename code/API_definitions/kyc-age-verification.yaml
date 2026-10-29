@@ -5,7 +5,7 @@ info:
   description: |
 
     # Summary
-    This API provides the customer with the ability to check if the user of the line is older than a provided age, in order to provide API customer's age-restricted services, access to its age-restricted website etc..
+    This API provides the API Consumer with the ability to check if the subscriber associated to the provided phone number is of the same age or older than a provided age, in order to provide age-restricted services, access to its age-restricted website etc..
 
     # API functionality
 
@@ -13,31 +13,35 @@ info:
 
     - `POST /verify`
 
-      Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and checks if the age of the subscriber is older than the age threshold in the request.
-      Additionally, as optional function, provides (1) if age check is done against another form of official identification (Note) or not (verifiedStatus), (2) an overall score of how certain is the response using both information provided in the request and information that the Operator holds(identityMatchScore), (3) an indicator on whether the subscription has any kind of content lock (contentLock) and (4) an indicator on whether the subscription has any kind of parental control activated (parentalControl).
-      Note: Depending on the country, credit-check or other mechanism can be used instead of official identification for Age Verification. For details, please contact API Provider.
+      Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and checks if the age of the subscriber is equal to or above the age threshold in the request.
+      Additionally, as optional function, provides:
+      - (1) if age check is done against some form of official identification (see note) (indicated by including verifiedStatus = true).
+      - (2) an overall score of how reliable the response is (in the identityMatchScore), which is derived from both information provided in the request and information that the Operator holds.
+      - (3) an indication of whether the subscription has any kind of content lock (contentLock).
+      - (4) an indication of whether the subscription has any kind of parental control activated (parentalControl).
+      Note: Depending on the country, a credit-check or other mechanism can be used instead of official identification for Age Verification. For details, please contact the API Provider.
 
     ## Inputs
 
     The endpoint request body is a JSON object with the following parameters:
-    - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Required only in case using a two-legged access token has been agreed between API Provider and API Consumer following CAMARA directives; otherwise, phoneNumber must not be included]
+    - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Required only when the use of a two-legged access token has been agreed between API Provider and API Consumer following CAMARA directives; otherwise, phoneNumber must not be included]
     - `ageThreshold`: The age threshold from which the age of the user must be compared. [Required]
-    - any of `idDocument`, `name`, `givenName`, `familyName`, `middleNames`, `familyNameAtBirth`, `birthdate`, `email`; additional subscriber's information to be checked in order to confirm that the subscriber is the contract's owner [Optional]
-    - `includeContentLock` and `includeParentalControl`: These two flags allow the API Client to indicate that the corresponding response properties `contentLock` and `parentalControl` should be returned. Its implementation is optional for the API Provider, so in such cases, these parameters will be ignored. [Optional]
+    - any of `idDocument`, `name`, `givenName`, `familyName`, `middleNames`, `familyNameAtBirth`, `birthdate`, `email`; additional subscriber information to be checked in order to confirm that the subscriber is the contract owner [Optional]
+    - `includeContentLock` and `includeParentalControl`: These two flags allow the API Consumer to request that the corresponding response properties `contentLock` and `parentalControl` should be returned. Its implementation is optional for the API Provider, so in such cases, these parameters will be ignored. [Optional]
 
 
     ## Outputs
 
     If successful, a JSON object is returned containing the following data:
-    - `ageCheck`: Indicate 'true' when the age of the user is the same age or older than the age threshold (age >= age threshold), and 'false' if not (age < age threshold).  Otherwise, 'not_available'.
-    - `verifiedStatus`: true if the information provided was checked against another form of official identification (Note), otherwise false. Note: Depending on the country, credit-check or other mechanism can be used instead of official identification for Age Verification. For details, please contact API Provider.
-    - `identityMatchScore`: The overall score of identity information available in the Operator, information either provided in the request body comparing it to the one that the network operator holds or directly using internal network operator's information. It is optional for the Operator to return the Identity match score.
+    - `ageCheck`: Indicate 'true' when the age of the user is equal to or above the age threshold (age >= age threshold), and 'false' if not (age < age threshold).  Otherwise, 'not_available'.
+    - `verifiedStatus`: true if the information provided was checked against another form of official identification (See note above), otherwise false.
+    - `identityMatchScore`: The overall score of identity information available in the Operator, information either provided in the request body comparing it to the one that the network operator holds or directly using internal network operator's information. It is optional for the API Provider to return the Identity match score.
     - `contentLock`: Indicates if the subscription associated with the phone number has any kind of content lock (i.e certain web content blocked).
     - `parentalControl`: Indicates if the subscription associated with the phone number has any kind of parental control activated.
 
     ## Note1
-    - `contentLock`: typically web content lock indicates that access to certain websites or online content by an end user is restricted by default to ensure safe browsing. It may happen that in some Markets/Telco Operators this feature is linked to the fact of the end user has proven to be over a minimum required age limit. That is, in case the end user has proven to be over a minimum required age limit contentLock can be disabled.
-    - `parentalControl`: a parental control indicates typically that the end user is a minor, and parents have set restrictions on what services can be used to restrict their child's online activities.
+    - `contentLock`: typically web content lock indicates that access to certain websites or online content by an end user is restricted by default to ensure safe browsing. In some markets, contentLock is associated directly with end-user age, blocking access when under the age threshold.
+    - `parentalControl`: a parental control indicates typically that the end user is a minor, and parents have set restrictions on their child's online activities, and on what services they can use.
 
     ## Note2: When `ageCheck` cannot be performed and "not_available" is returned:
     - `verifiedStatus` and `identityMatchScore` will not be returned, as these are supplemental attributes to `ageCheck` and are only applicable when an age evaluation is possible.
@@ -76,6 +80,7 @@ info:
     - If the subject can be identified from the access token and the optional `phoneNumber` field is also included in the request, then the server will return an error with the `422 UNNECESSARY_IDENTIFIER` error code. This will be the case even if the same phone number is identified by these two methods, as the server is unable to make this comparison.
 
     <!-- CAMARA:MANDATORY:authorization-and-authentication:BEGIN -->
+
     # Authorization and authentication
 
     The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
@@ -86,6 +91,7 @@ info:
     <!-- CAMARA:MANDATORY:authorization-and-authentication:END -->
 
     <!-- CAMARA:MANDATORY:request-body-strictness:BEGIN -->
+
     # Request body strictness
 
     This API rejects requests with JSON request bodies that contain properties not declared in this specification, at any nesting level. Unknown properties result in a `400 INVALID_ARGUMENT` response.
