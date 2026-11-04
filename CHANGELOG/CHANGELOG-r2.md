@@ -36,13 +36,9 @@ The API definition(s) are based on
 <summary>Candidate changes (auto-generated from merged PRs)</summary>
 
 ## What's Changed
-* Release Automation: Post-release sync (r2.1) by @camara-release-automation[bot] in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/58
 * Release r2.1 review issues by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
-* Update release-plan.yaml - New Commonalities version alignment by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/63
-* Sync common files from Commonalities r4.4 by @camara-release-automation[bot] in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/64
 * Clarify output behavior when ageCheck is not_available by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/62
 * Commonalities r4.4 alignment by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
-* chore: remove obsolete v0 validation caller workflows by @hdamker in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/68
 * 71 release r22 review findings by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
 * docs: address minor wording and description issues in #77 by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/79
 
@@ -69,15 +65,26 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Added
 
-* N/A
+* Documented the `429 TOO_MANY_REQUESTS` error response by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Added test scenarios for `400 INVALID_ARGUMENT` (request body not compliant with the schema, missing required property, invalid `x-correlator`), `403 PERMISSION_DENIED` and `429 TOO_MANY_REQUESTS` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
 
 ### Changed
 
-* N/A
+* Replaced "CSP" and "MNO" with "network operator" in the API description by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Clarified in the API description what the response contains when `ageCheck` is `not_available`: `verifiedStatus` and `identityMatchScore` are not returned, while `contentLock` and `parentalControl` may still be returned because they are evaluated independently by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/62
+* Aligned with Commonalities r4.4: error responses use the Commonalities response and example definitions (status and error codes unchanged, example messages reworded), and test definitions follow the r4.4 templates (renamed scenario tags, operation `verifyAge`) by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
 
 ### Fixed
 
-* N/A
+* Corrected the expired access token test scenario so that it only expects the error code `UNAUTHENTICATED` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Fixed defects in the test definition as below by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74:
+  - Modify scenario `03` that `verifiedStatus` and `identityMatchScore` are not returned.
+  - Add a precondition to scenarios `04` and `05` that the API Provider implements the functionality.
+  - Remove scenario `400.04`.
+  - Retitle scenario `403.02` as `"/verify" not managed ...` (from  `"/verify" not created ...`).
+  - Several minor items.
+* Fixed a formatting typo by adding a blank line directly after the `BEGIN` markers of the `authorization-and-authentication` and `request-body-strictness` info-description templates by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
+* Improved readability and wording in the info.description templates by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
 
 ### Removed
 
