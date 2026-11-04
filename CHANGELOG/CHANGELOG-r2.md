@@ -85,6 +85,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
   - Several minor items.
 * Fixed a formatting typo by adding a blank line directly after the `BEGIN` markers of the `authorization-and-authentication` and `request-body-strictness` info-description templates by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
 * Improved readability and wording in the info.description templates by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
+* Fixed description of 401 error, description of 403 error, and an email address example by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/79 
 
 ### Removed
 
