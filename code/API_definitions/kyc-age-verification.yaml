@@ -47,11 +47,18 @@ info:
     - `verifiedStatus` and `identityMatchScore` will not be returned, as these are supplemental attributes to `ageCheck` and are only applicable when an age evaluation is possible.
     - `contentLock` and `parentalControl` may still be returned, as their evaluation is independent of `ageCheck`.
 
+    ## Note3: Relation between `ageCheck` and the optional identity attributes
+    - `ageCheck` always refers to the contract holder of the subscription identified by the phone number or the access token.
+    - The optional identity attributes in the request (`idDocument`, `name`, `givenName`, `familyName`, `middleNames`, `familyNameAtBirth`, `birthdate`, `email`) do not change the subject of `ageCheck`. A mismatch between these attributes and the information held by the API Provider is only reflected in `identityMatchScore` (when the API Provider returns it), and does not by itself lead to `not_available`.
+
     ## Errors
 
     - If the authentication access token is not valid, a `401 UNAUTHENTICATED` error is returned
     - If the API call contains a formatting or any other syntax exception, a `400 INVALID_ARGUMENT` error is returned.
-    - If the network subscription cannot be identified from the provided parameters (e.g. the subscription identifier is not associated with any customer of the network operator), a `404 IDENTIFIER_NOT_FOUND` error is returned.
+    - If `ageThreshold` is outside the range allowed by the API Provider (the range defined in the schema, or the narrower range or set of values agreed during onboarding due to local regulations), a `400 OUT_OF_RANGE` error is returned.
+    - If the network subscription does not exist for the API Provider (e.g. the subscription identifier is not associated with any customer of the network operator), a `404 IDENTIFIER_NOT_FOUND` error is returned.
+    - If the network subscription exists but belongs to a segment or contract type that the service does not support (e.g. the service is only offered to certain types of subscriptions), a `422 SERVICE_NOT_APPLICABLE` error is returned.
+    - If the network subscription exists and can be processed, but the API Provider holds no age information for it or it is outside the API Provider's business scope (e.g. the API Provider only holds age information for subscriptions used by their contract holder), a `200` response with `ageCheck` set to `not_available` is returned.
     - If the API consumer has a valid access token that does not have the required scope to perform this operation, then a `403 PERMISSION_DENIED` error is returned.
 
     <!-- CAMARA:MANDATORY:additional-error-responses:BEGIN -->
@@ -156,7 +163,7 @@ paths:
                   givenName: Federica
                   familyName: Sanchez Arjona
                   middleNames: Sanchez
-                  familyNameAtBirth: YYYY
+                  familyNameAtBirth: Sanchez Arjona
                   birthdate: '1978-08-22'
                   email: "federicaSanchez.Arjona@example.com"
                   includeContentLock: true
@@ -169,7 +176,7 @@ paths:
                   givenName: Federica
                   familyName: Sanchez Arjona
                   middleNames: Sanchez
-                  familyNameAtBirth: YYYY
+                  familyNameAtBirth: Sanchez Arjona
                   birthdate: '1978-08-22'
                   email: "federicaSanchez.Arjona@example.com"
                   includeContentLock: true
@@ -248,7 +255,7 @@ components:
       format: int32
       minimum: 0
       maximum: 120
-      description: The age to be verified. The indicated range is a global definition of maximum and minimum values allowed to be requested. It is important to note that this range might be more restrictive in some implementations due to local regulations of a country i.e. A country does not allow to request for an age under 18. This limitation must be informed during the onboarding process.
+      description: The age to be verified. The indicated range is a global definition of maximum and minimum values allowed to be requested. It is important to note that this range might be more restrictive in some implementations due to local regulations of a country i.e. A country does not allow to request for an age under 18. This limitation must be informed during the onboarding process. If the requested value is outside the range allowed by the API Provider, either the schema range or the narrower range or set of values agreed during onboarding, the request is rejected with a `400 OUT_OF_RANGE` error.
 
     IdDocument:
       type: "string"
@@ -322,7 +329,7 @@ components:
     AgeCheck:
       type: "string"
       maxLength: 15
-      description: Indicate `"true"` when the age of the user is the same age or older than the age threshold (age >= age threshold), and `"false"` if not (age < age threshold). If the API Provider doesn't have enough information to perform the validation, a `not_available` can be returned.
+      description: Indicate `"true"` when the age of the user is the same age or older than the age threshold (age >= age threshold), and `"false"` if not (age < age threshold). `ageCheck` always refers to the contract holder of the subscription. If the API Provider doesn't have enough information to perform the validation, a `not_available` is returned.
       enum:
         - 'true'
         - 'false'

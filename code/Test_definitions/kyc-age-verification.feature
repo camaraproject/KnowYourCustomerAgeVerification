@@ -96,6 +96,20 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
       | $.birthdate           | #/components/schemas/Birthdate         |
       | $.email               | #/components/schemas/Email             |
 
+  @kyc-age-verification_verifyAge_03b_identity_mismatch
+  Scenario: Identity attributes do not match the contract holder
+    Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
+    And the subscription is within the business scope of the API Provider, so that an age result can be provided
+    And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
+    And the request body contains optional identity attributes that do not match the information held by the API Provider
+    When the request "verifyAge" is sent
+    Then the response status code is 200
+    And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
+    And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
+    And the response contains property "$.ageCheck" whose value is one of ["true", "false"]
+    And if the response contains property "$.identityMatchScore", the value is compliant with OAS schema at "#/components/schemas/IdentityMatchScore"
+
   @kyc-age-verification_verifyAge_04_contentLock
   Scenario: Validate successful response when contentLock is requested
     Given the contentLock functionality is implemented and supported by the provider
@@ -188,6 +202,16 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
   @kyc-age-verification_verifyAge_400.07_out_of_range
   Scenario: Error when ageThreshold is out of range
     Given the request body property "$.ageThreshold" is set to a value that is not within the range defined in OAS schema "#/components/schemas/AgeThreshold"
+    When the request "verifyAge" is sent
+    Then the response status code is 400
+    And the response property "$.status" is 400
+    And the response property "$.code" is "OUT_OF_RANGE"
+    And the response property "$.message" contains a user friendly text
+
+  @kyc-age-verification_verifyAge_400.08_out_of_range_provider_range
+  Scenario: Error when ageThreshold is within the schema range but outside the range allowed by the API Provider
+    Given the API Provider has agreed with the API Consumer a narrower range of "$.ageThreshold" than the one defined in the OAS schema "#/components/schemas/AgeThreshold"
+    And the request body property "$.ageThreshold" is set to a value within the range defined in the OAS schema but outside the agreed range
     When the request "verifyAge" is sent
     Then the response status code is 400
     And the response property "$.status" is 400
