@@ -122,7 +122,7 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
     And the response contains property "$.ageCheck" whose value is one of ["true", "false", "not_available"]
-    And if the response contains property "$.contentLock", the value is one of ["true", "false", "not_available"]
+    And the response contains property "$.contentLock" whose value is one of ["true", "false", "not_available"]
 
   @kyc-age-verification_verifyAge_05_parentalControl
   Scenario: Validate successful response when parentalControl is requested
@@ -136,7 +136,25 @@ Feature: CAMARA KYC Age Verification API, vwip - Operation verifyAge
     And the response header "x-correlator" has same value as the request header "x-correlator"
     And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
     And the response contains property "$.ageCheck" whose value is one of ["true", "false", "not_available"]
-    And if the response contains property "$.parentalControl", the value is one of ["true", "false", "not_available"]
+    And the response contains property "$.parentalControl" whose value is one of ["true", "false", "not_available"]
+
+  @kyc-age-verification_verifyAge_06_flags_not_requested
+  Scenario Outline: Validate that contentLock and parentalControl are not returned when they are not requested
+    Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
+    And the request body property "$.ageThreshold" is set to a valid value compliant with the OAS schema at "#/components/schemas/AgeThreshold"
+    And the request body properties "$.includeContentLock" and "$.includeParentalControl" are <flag_value>
+    When the request "verifyAge" is sent
+    Then the response status code is 200
+    And the response header "Content-Type" is "application/json"
+    And the response header "x-correlator" has same value as the request header "x-correlator"
+    And the response body complies with the OAS schema at "#/components/schemas/VerifyResponseBody"
+    And the response body does not contain the property "$.contentLock"
+    And the response body does not contain the property "$.parentalControl"
+
+    Examples:
+      | flag_value   |
+      | not included |
+      | set to false |
 
    # Generic 400 errors
 

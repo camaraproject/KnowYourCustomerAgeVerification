@@ -17,10 +17,9 @@ Sandbox API Repository to describe, develop, document, and test the KnowYourCust
 
 * Service API(s) “KnowYourCustomerAgeVerification” (see APIBacklog.md) 
 * The API(s) provide(s) the API consumer with the ability to:  
-  * check if the user of the line is older than a provided age, in order to provide API customer's age-restricted services, access to its age-restricted website etc..
+  * check if the contract holder of the subscription associated to the provided phone number is of the same age or older than a provided age, in order to provide age-restricted services, access to its age-restricted website etc..
 * Describe, develop, document, and test the API(s)
 * Started: September 2023 (within [KnowYourCustomer](https://github.com/camaraproject/KnowYourCustomer))
-* Incubating stage since: February 2025
 
 <!-- CAMARA:RELEASE-INFO:START -->
 <!-- The following section is automatically maintained by the CAMARA project-administration tooling: https://github.com/camaraproject/project-administration -->
