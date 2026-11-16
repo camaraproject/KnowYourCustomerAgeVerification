@@ -36,16 +36,11 @@ The API definition(s) are based on
 <summary>Candidate changes (auto-generated from merged PRs)</summary>
 
 ## What's Changed
-* Release Automation: Post-release sync (r2.1) by @camara-release-automation[bot] in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/58
 * Release r2.1 review issues by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
-* Update release-plan.yaml - New Commonalities version alignment by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/63
-* Sync common files from Commonalities r4.4 by @camara-release-automation[bot] in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/64
 * Clarify output behavior when ageCheck is not_available by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/62
 * Commonalities r4.4 alignment by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
-* chore: remove obsolete v0 validation caller workflows by @hdamker in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/68
 * 71 release r22 review findings by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
 * docs: address minor wording and description issues in #77 by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/79
-* Set kyc-age-verification target version to 0.3.0 by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/85
 * Clarify ageCheck, error outcomes and ageThreshold range (#77) by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/81
 * Address r2.2 review findings: one term for ageCheck subject, test scenarios 04/05, README (#82, #83, #84) by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
 
@@ -73,15 +68,36 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Added
 
-* N/A
+* Documented the `429 TOO_MANY_REQUESTS` error response by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Added test scenarios for `400 INVALID_ARGUMENT` (request body not compliant with the schema, missing required property, invalid `x-correlator`), `403 PERMISSION_DENIED` and `429 TOO_MANY_REQUESTS` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
+* Added test scenarios `03b_identity_mismatch` and `400.08_out_of_range_provider_range` by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/81
+* Added test scenario `06` to check that neither of `contentLock` / `parentalControl` is returned when the request flags are absent or false by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86.
 
 ### Changed
 
-* N/A
+* Replaced "CSP" and "MNO" with "network operator" in the API description by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Clarified in the API description what the response contains when `ageCheck` is `not_available`: `verifiedStatus` and `identityMatchScore` are not returned, while `contentLock` and `parentalControl` may still be returned because they are evaluated independently by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/62
+* Aligned with Commonalities r4.4: error responses use the Commonalities response and example definitions (status and error codes unchanged, example messages reworded), and test definitions follow the r4.4 templates (renamed scenario tags, operation `verifyAge`) by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
+* Clarified the API provider behaviour in the API description as the changed below by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/81
+  - Identity mismatch: `ageCheck` always refers to the contract holder; a mismatch of the optional identity attribute is only reflected in `identityMatchScore` (new `Note3`)
+  - Outcomes: the Errors section states when `404 IDENTIFIER_NOT_FOUND`, `422 SERVICE_NOT_AVAILABLE`, and `200` with `ageCheck: not_available` apply.
+  - ageThreshold: a value outside the scheme range, or outside the range agreed at onboarding, returns `400 OUT_OF_RANGE`
+  - Examples: for `familyNameAtBirth: YYYY`, YYYY was replaced by a realistic value.
+* Replaced the terms related to the contract holder such as subscriber, user, contract owner, and so on, with “contract holder” as the single term for the subject of `ageCheck` in `info.description`, the `POST /verify` description and the `AgeCheck` schema, consistent with `Note 3` by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
 
 ### Fixed
 
 * N/A
+* Corrected the expired access token test scenario so that it only expects the error code `UNAUTHENTICATED` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
+* Fixed defects in the test definition as below by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74:
+  - Modify scenario `03` that `verifiedStatus` and `identityMatchScore` are not returned.
+  - Add a precondition to scenarios `04` and `05` that the API Provider implements the functionality.
+  - Remove scenario `400.04`.
+  - Retitle scenario `403.02` as `"/verify" not managed ...` (from  `"/verify" not created ...`).
+  - Several minor items.
+* Fixed a formatting typo by adding a blank line directly after the `BEGIN` markers of the `authorization-and-authentication` and `request-body-strictness` in the API description by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
+* Fixed description of 400 error, description of 403 error, and an email address example by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/79
+* Fixed test scenarios `04` and `05` to check that the requested property (`contentLock` / `parentalControl`) is returned by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
 
 ### Removed
 
