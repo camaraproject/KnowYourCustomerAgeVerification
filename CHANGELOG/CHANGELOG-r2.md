@@ -87,7 +87,6 @@ Changes documented below are compared to version 0.3.0-rc.1.
 
 ### Fixed
 
-* N/A
 * Corrected the expired access token test scenario so that it only expects the error code `UNAUTHENTICATED` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
 * Fixed defects in the test definition as below by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74:
   - Modify scenario `03` that `verifiedStatus` and `identityMatchScore` are not returned.
