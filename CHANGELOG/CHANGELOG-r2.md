@@ -78,7 +78,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
 * Replaced "CSP" and "MNO" with "network operator" in the API description by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
 * Clarified in the API description what the response contains when `ageCheck` is `not_available`: `verifiedStatus` and `identityMatchScore` are not returned, while `contentLock` and `parentalControl` may still be returned because they are evaluated independently by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/62
 * Aligned with Commonalities r4.4: error responses use the Commonalities response and example definitions (status and error codes unchanged, example messages reworded), and test definitions follow the r4.4 templates (renamed scenario tags, operation `verifyAge`) by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
-* Clarified the API provider behaviour in the API description as the changed below by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/81
+* Clarified the API provider behaviour in the API description as listed below by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/81
   - Identity mismatch: `ageCheck` always refers to the contract holder; a mismatch of the optional identity attribute is only reflected in `identityMatchScore` (new `Note3`)
   - Outcomes: the Errors section states when `404 IDENTIFIER_NOT_FOUND`, `422 SERVICE_NOT_APPLICABLE`, and `200` with `ageCheck: not_available` apply.
   - ageThreshold: a value outside the scheme range, or outside the range agreed at onboarding, returns `400 OUT_OF_RANGE`
