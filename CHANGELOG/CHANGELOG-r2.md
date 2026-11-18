@@ -80,7 +80,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
 * Aligned with Commonalities r4.4: error responses use the Commonalities response and example definitions (status and error codes unchanged, example messages reworded), and test definitions follow the r4.4 templates (renamed scenario tags, operation `verifyAge`) by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
 * Clarified the API provider behaviour in the API description as the changed below by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/81
   - Identity mismatch: `ageCheck` always refers to the contract holder; a mismatch of the optional identity attribute is only reflected in `identityMatchScore` (new `Note3`)
-  - Outcomes: the Errors section states when `404 IDENTIFIER_NOT_FOUND`, `422 SERVICE_NOT_AVAILABLE`, and `200` with `ageCheck: not_available` apply.
+  - Outcomes: the Errors section states when `404 IDENTIFIER_NOT_FOUND`, `422 SERVICE_NOT_APPLICABLE`, and `200` with `ageCheck: not_available` apply.
   - ageThreshold: a value outside the scheme range, or outside the range agreed at onboarding, returns `400 OUT_OF_RANGE`
   - Examples: for `familyNameAtBirth: YYYY`, YYYY was replaced by a realistic value.
 * Replaced the terms related to the contract holder such as subscriber, user, contract owner, and so on, with “contract holder” as the single term for the subject of `ageCheck` in `info.description`, the `POST /verify` description and the `AgeCheck` schema, consistent with `Note 3` by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
