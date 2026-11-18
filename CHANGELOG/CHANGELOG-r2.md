@@ -91,8 +91,6 @@ Changes documented below are compared to version 0.3.0-rc.1.
 * Fixed defects in the test definition as below by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74:
   - Modify scenario `03` that `verifiedStatus` and `identityMatchScore` are not returned.
   - Add a precondition to scenarios `04` and `05` that the API Provider implements the functionality.
-  - Remove scenario `400.04`.
-  - Retitle scenario `403.02` as `"/verify" not managed ...` (from  `"/verify" not created ...`).
   - Several minor items.
 * Fixed a formatting typo by adding a blank line directly after the `BEGIN` markers of the `authorization-and-authentication` and `request-body-strictness` in the API description by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/74
 * Fixed description of 400 error, description of 403 error, and an email address example by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/79
