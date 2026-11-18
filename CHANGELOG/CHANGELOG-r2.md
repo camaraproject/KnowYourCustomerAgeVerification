@@ -83,7 +83,7 @@ Changes documented below are compared to version 0.3.0-rc.1.
   - Outcomes: the Errors section states when `404 IDENTIFIER_NOT_FOUND`, `422 SERVICE_NOT_APPLICABLE`, and `200` with `ageCheck: not_available` apply.
   - ageThreshold: a value outside the scheme range, or outside the range agreed at onboarding, returns `400 OUT_OF_RANGE`
   - Examples: for `familyNameAtBirth: YYYY`, YYYY was replaced by a realistic value.
-* Replaced the terms related to the contract holder such as subscriber, user, contract owner, and so on, with “contract holder” as the single term for the subject of `ageCheck` in `info.description`, the `POST /verify` description and the `AgeCheck` schema, consistent with `Note 3` by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
+* Replaced the terms related to the contract holder such as subscriber, user, contract owner, and so on, with “contract holder” as the single term for the subject of `ageCheck` in `info.description`, the `POST /verify` description and the `AgeCheck` schema, consistent with `Note3` by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
 
 ### Fixed
 
