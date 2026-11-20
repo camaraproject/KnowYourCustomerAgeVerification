@@ -97,7 +97,6 @@ Changes documented below are compared to version 0.2.1.
   * Added a precondition to scenarios `04` and `05` that the API Provider implements the functionality; the scenarios still check that the requested property (`contentLock` / `parentalControl`) is returned.
   * Corrected typos and schema references in the scenario steps.
 * Fixed description of 400 error, description of 403 error, and an email address example by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/79
-* Fixed test scenarios `04` and `05` to check that the requested property (`contentLock` / `parentalControl`) is returned by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
 
 ### Removed
 
