@@ -69,7 +69,7 @@ Changes documented below are compared to version 0.2.1.
 ### Added
 
 * Documented the `429 TOO_MANY_REQUESTS` error response by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/59
-* Added test scenarios for `400 INVALID_ARGUMENT` (request body not compliant with the schema, missing required property, invalid `x-correlator`), `403 PERMISSION_DENIED` and `429 TOO_MANY_REQUESTS` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
+* Added test scenarios for `400 INVALID_ARGUMENT` (missing required property, invalid `x-correlator`), `403 PERMISSION_DENIED` and `429 TOO_MANY_REQUESTS` by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/66
 * Added test scenarios `03b_identity_mismatch` and `400.08_out_of_range_provider_range` by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/81
 * Added test scenario `06` to check that neither of `contentLock` / `parentalControl` is returned when the request flags are absent or false by @albertoramosmonagas in https://github.com/camaraproject/KnowYourCustomerAgeVerification/pull/86
 
